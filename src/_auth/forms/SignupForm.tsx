@@ -17,7 +17,7 @@ import { SignupValidation } from "@/lib/validation"
 
 
 export default function SignupForm() {
-
+  const isLoading = true;
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -40,13 +40,13 @@ export default function SignupForm() {
       <Form {...form}>
 
         <div className="sm:w-420 flex-center flex-col">
-            <img src="/assets/images/logo.png" className="h-40" />
+            <img src="/assets/images/logo.png" className="h-28" />
             <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create your account</h2>
         
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
           <FormField
             control={form.control}
-            name="username"
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Name</FormLabel>
@@ -57,7 +57,53 @@ export default function SignupForm() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Username</FormLabel>
+                <FormControl>
+                  <Input type="text" className="shad-input" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type="email" className="shad-input" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+            <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input type="password" className="shad-input" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="shad-button_primary">
+                {isLoading ? (
+                  <div className="flex-center gap-2">
+                      Loading...
+                  </div>
+                ) : "Register"}
+          </Button>
         </form>
         </div>
     </Form>
