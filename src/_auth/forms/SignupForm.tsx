@@ -41,26 +41,25 @@ export default function SignupForm() {
 
         <div className="sm:w-420 flex-center flex-col">
             <img src="/assets/images/logo.png" className="h-40" />
-        </div>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create your account</h2>
+        
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
           <FormField
             control={form.control}
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input type="text" className="shad-input" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button type="submit">Submit</Button>
         </form>
+        </div>
     </Form>
   )
 }
