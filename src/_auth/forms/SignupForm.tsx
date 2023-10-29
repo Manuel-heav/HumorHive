@@ -13,11 +13,12 @@ import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { SignupValidation } from "@/lib/validation"
+import { Loader } from "lucide-react"
  
 
 
 export default function SignupForm() {
-  const isLoading = true;
+  const isLoading = false;
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -40,8 +41,8 @@ export default function SignupForm() {
       <Form {...form}>
 
         <div className="sm:w-420 flex-center flex-col">
-            <img src="/assets/images/logo.png" className="h-28" />
-            <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create your account</h2>
+            <img src="/assets/images/logo.png" width={140} height={120}/>
+            <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12 md:-mt-14">Create your account</h2>
         
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
           <FormField
@@ -100,7 +101,7 @@ export default function SignupForm() {
           <Button type="submit" className="shad-button_primary">
                 {isLoading ? (
                   <div className="flex-center gap-2">
-                      Loading...
+                      <Loader />
                   </div>
                 ) : "Register"}
           </Button>
