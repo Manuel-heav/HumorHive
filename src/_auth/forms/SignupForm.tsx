@@ -14,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { SignupValidation } from "@/lib/validation"
 import { Loader } from "lucide-react"
+import { Link } from "react-router-dom"
  
 
 
@@ -105,6 +106,11 @@ export default function SignupForm() {
                   </div>
                 ) : "Register"}
           </Button>
+
+          <p className="text-small-regular text-light-2 text-center mt-2">
+                Already have an Account?
+                <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1">Sign In</Link>
+          </p>
         </form>
         </div>
     </Form>
