@@ -16,7 +16,7 @@ import { SignupValidation } from "@/lib/validation"
 import { Loader } from "lucide-react"
 import { Link } from "react-router-dom"
 import { createUserAccount } from "@/lib/appwrite/api"
- 
+
 
 
 export default function SignupForm() {
@@ -31,20 +31,20 @@ export default function SignupForm() {
       username: "",
     },
   })
- 
+
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
-   const newUser = await createUserAccount(values);
-    console.log(newUser);
+    const newUser = await createUserAccount(values);
+    console.log(newUser)
   }
 
   return (
-      <Form {...form}>
+    <Form {...form}>
 
-        <div className="sm:w-420 flex-center flex-col">
-            <img src="/assets/images/logo.png" width={140} height={120}/>
-            <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12 md:-mt-14">Create your account</h2>
-        
+      <div className="sm:w-420 flex-center flex-col">
+        <img src="/assets/images/logo.png" width={140} height={120} />
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12 md:-mt-14">Create your account</h2>
+
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
           <FormField
             control={form.control}
@@ -86,7 +86,7 @@ export default function SignupForm() {
             )}
           />
 
-            <FormField
+          <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
@@ -100,19 +100,19 @@ export default function SignupForm() {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-                {isLoading ? (
-                  <div className="flex-center gap-2">
-                      <Loader />
-                  </div>
-                ) : "Register"}
+            {isLoading ? (
+              <div className="flex-center gap-2">
+                <Loader />
+              </div>
+            ) : "Register"}
           </Button>
 
           <p className="text-small-regular text-light-2 text-center mt-2">
-                Already have an Account?
-                <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1">Sign In</Link>
+            Already have an Account?
+            <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1">Sign In</Link>
           </p>
         </form>
-        </div>
+      </div>
     </Form>
   )
 }
