@@ -1,6 +1,6 @@
 import { INewUser } from "@/types";
 import { ID } from 'appwrite'
-import { account } from "./config";
+import { account, avatars } from "./config";
 
 export async function createUserAccount(user: INewUser){
     try{
@@ -10,9 +10,32 @@ export async function createUserAccount(user: INewUser){
             user.password, 
             user.name
         )
+
+        if(!newAccount) throw Error;
+
+        const avatarUrl = avatars.getInitials(user.name);
+
+        const newUser = await saveUserToDB({
+            accountId: newAccount.$id,
+            name: newAccount.name,
+            email: newAccount.email,
+            // this username is not coming from the new account instead the form, that's why it's user
+            username: user.username,
+            imageUrl: avatarUrl,
+        })
         return newAccount;
     }catch(err){
         console.log(err);
         return err
     }
+}
+
+export async function saveUserToDB(user: {
+    accountId: string,
+    email: string,
+    name: string,
+    imageUrl: URL,
+    username?: string,
+}){
+
 }
