@@ -50,3 +50,14 @@ export async function saveUserToDB(user: {
         console.log(err)
     }
 }
+
+export async function signInAccount (user: {email: string; password: string}){
+    try{
+        const session = await account.createEmailSession(user.email, user.password)
+
+        return session;
+    }
+    catch(err){
+        console.log(err)
+    }
+}

@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form"
 import { SignupValidation } from "@/lib/validation"
 import { Loader } from "lucide-react"
 import { Link } from "react-router-dom"
-import { useCreateUserAccountMutation } from "@/lib/react-query/queriesAndMutations"
+import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
 
 
 
@@ -32,7 +32,9 @@ export default function SignupForm() {
     },
   })
 
-  const {mutateAsync: createUserAccount, isLoading: isCreatingUser} = useCreateUserAccountMutation();
+  const {mutateAsync: createUserAccount, isLoading: isCreatingUser} = useCreateUserAccount();
+
+  const {mutateAsync: signInAccount, isLoading: isSigningIn} = useSignInAccount();
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
@@ -43,7 +45,19 @@ export default function SignupForm() {
       });
     }
 
-    // const session = await signInAccount()
+    const session = await signInAccount({
+      email: values.email,
+      password: values.password,
+    })
+
+    if(!session){
+      return toast({
+        title: "Sign in failed. Please try again.",
+      });
+    }
+
+
+    
   }
 
   return (
