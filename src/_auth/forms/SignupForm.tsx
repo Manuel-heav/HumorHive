@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { SignupValidation } from "@/lib/validation"
 import { Loader } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
 import { useUserContext } from "@/context/AuthContext"
 
@@ -22,6 +22,7 @@ import { useUserContext } from "@/context/AuthContext"
 
 export default function SignupForm() {
   const {toast} = useToast();
+  const navigate = useNavigate();
   const {checkAuthUser, isLoading:isUserLoading} = useUserContext();
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -61,6 +62,13 @@ export default function SignupForm() {
     const isLoggedIn = await checkAuthUser()
     if(isLoggedIn){
       form.reset();
+
+      navigate('/')
+
+    }else{
+     return toast({
+        title: 'Sign up failed. Please try again.'
+      })
     }
   }
 
