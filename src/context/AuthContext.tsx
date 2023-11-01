@@ -1,6 +1,7 @@
 import {createContext, useContext, useEffect, useState} from 'react'
 import { IContextType, IUser } from "@/types";
-
+import { getCurrentUser } from '@/lib/appwrite/api';
+import { useNavigate } from 'react-router-dom';
 
 
 export const INITIAL_USER = {
@@ -28,9 +29,28 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+
+    const navigate = useNavigate()
+
     const checkAuthUser = async () =>{
         try{
             const currentAccount = await getCurrentUser();
+
+            if(currentAccount){
+                setUser({
+                    id: currentAccount.$id,
+                    name: currentAccount.name,
+                    username: currentAccount.username,
+                    email: currentAccount.email,
+                    imageUrl: currentAccount.imageUrl,
+                    bio: currentAccount.bio,
+                })
+
+                setIsAuthenticated(true);
+                return true;
+            }
+
+            return false
         }catch(err){
             console.log(err);
             return false;
@@ -38,6 +58,14 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
             setIsLoading(false)
         }
     }
+
+    useEffect(() => {
+        if(
+            localStorage.getItem('cookieFallback') === '[]' || localStorage.getItem('cookieFallback') === null
+        )navigate('/sign-in')
+
+        checkAuthUser()
+    },[])
     const value = {
         user, 
         setUser,
@@ -53,4 +81,6 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
   )
 }
 
-export default AuthContext
+export default AuthProvider
+
+export const useUserContext = () => useContext(AuthContext);

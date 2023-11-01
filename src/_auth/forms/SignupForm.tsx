@@ -16,11 +16,13 @@ import { SignupValidation } from "@/lib/validation"
 import { Loader } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
+import { useUserContext } from "@/context/AuthContext"
 
 
 
 export default function SignupForm() {
   const {toast} = useToast();
+  const {checkAuthUser, isLoading:isUserLoading} = useUserContext();
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -56,8 +58,10 @@ export default function SignupForm() {
       });
     }
 
-
-    
+    const isLoggedIn = await checkAuthUser()
+    if(isLoggedIn){
+      form.reset();
+    }
   }
 
   return (
