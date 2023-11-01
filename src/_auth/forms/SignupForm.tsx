@@ -35,9 +35,9 @@ export default function SignupForm() {
     },
   })
 
-  const {mutateAsync: createUserAccount, isLoading: isCreatingUser} = useCreateUserAccount();
+  const {mutateAsync: createUserAccount, isPending: isCreatingAccount} = useCreateUserAccount();
 
-  const {mutateAsync: signInAccount, isLoading: isSigningIn} = useSignInAccount();
+  const {mutateAsync: signInAccount, isPending: isSigningIn} = useSignInAccount();
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
@@ -134,7 +134,7 @@ export default function SignupForm() {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            {isCreatingUser ? (
+            {isCreatingAccount ? (
               <div className="flex-center gap-2">
                 <Loader />
               </div>
