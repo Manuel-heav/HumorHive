@@ -7,3 +7,8 @@ export const SignupValidation = z.object({
     email: z.string().email(),
     password: z.string().min(8, {message: "Longer is always better, THAT'S WHAT SHE SAID!"}),
   })
+
+  export const SigninValidation = z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+  })

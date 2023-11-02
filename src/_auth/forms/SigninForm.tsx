@@ -12,10 +12,10 @@ import { Input } from "@/components/ui/input"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { SignupValidation } from "@/lib/validation"
+import { SigninValidation } from "@/lib/validation"
 import { Loader } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
-import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
+import { useSignInAccount } from "@/lib/react-query/queriesAndMutations"
 import { useUserContext } from "@/context/AuthContext"
 
 
@@ -25,29 +25,20 @@ export default function SigninForm() {
   const navigate = useNavigate();
   const {checkAuthUser, isLoading:isUserLoading} = useUserContext();
   // 1. Define your form.
-  const form = useForm<z.infer<typeof SignupValidation>>({
-    resolver: zodResolver(SignupValidation),
+  const form = useForm<z.infer<typeof SigninValidation>>({
+    resolver: zodResolver(SigninValidation),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
-      username: "",
     },
   })
 
-  const {mutateAsync: createUserAccount, isPending: isCreatingAccount} = useCreateUserAccount();
 
   const {mutateAsync: signInAccount, isPending: isSigningIn} = useSignInAccount();
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof SignupValidation>) {
-    const newUser = await createUserAccount(values);
-    if(!newUser){
-      return toast({
-        title: "Sign up failed. Please try again.",
-      });
-    }
-
+  async function onSubmit(values: z.infer<typeof SigninValidation>) {
+  
     const session = await signInAccount({
       email: values.email,
       password: values.password,
@@ -67,7 +58,7 @@ export default function SigninForm() {
 
     }else{
      return toast({
-        title: 'Sign up failed. Please try again.'
+        title: 'Sign In failed. Please try again.'
       })
     }
   }
@@ -77,35 +68,9 @@ export default function SigninForm() {
 
       <div className="sm:w-420 flex-center flex-col">
         <img src="/assets/images/logo.png" width={140} height={120} />
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12 md:-mt-14">Create your account</h2>
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12 md:-mt-14">Login to your account</h2>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="email"
@@ -134,16 +99,16 @@ export default function SigninForm() {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            {isCreatingAccount ? (
+            {isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader />
               </div>
-            ) : "Register"}
+            ) : "Log In"}
           </Button>
 
           <p className="text-small-regular text-light-2 text-center mt-2">
-            Already have an Account?
-            <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1">Sign In</Link>
+            Don't have an Account?
+            <Link to="/sign-up" className="text-primary-500 text-small-semibold ml-1">Sign Up</Link>
           </p>
         </form>
       </div>
