@@ -18,7 +18,7 @@ const App = () => {
             <Route path="/sign-up" element={<SignupForm />}/>
           </Route>
           {/* Sign Up and Sign In only users can see */}
-          
+          {/*  */}
           {/* Private Routes */}
           {/* Only Logged in Users see */}
           <Route element={<RootLayout />}>
