@@ -68,7 +68,7 @@ export default function SigninForm() {
 
       <div className="sm:w-420 flex-center flex-col">
         <img src="/assets/images/logo.png" width={140} height={120} />
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12 md:-mt-14">Login to your account</h2>
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12 md:-mt-14">Log in to your account</h2>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
           <FormField
