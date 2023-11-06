@@ -45,7 +45,7 @@
   }
 
   .body-bold {
-    @apply text-[18px] font-bold leading-[140%];
+    @apply text-[14px] font-bold leading-[140%];
   }
 
   .body-medium {
@@ -61,7 +61,7 @@
   }
 
   .small-regular {
-    @apply text-[14px] font-normal leading-[140%];
+    @apply text-[12px] font-normal leading-[140%];
   }
 
   .subtle-semibold {
