@@ -26,7 +26,7 @@ const LeftSidebar = () => {
                 <img src="/assets/images/logo.png" className="-mt-8" width={100} height={40} />
             </Link>
 
-            <Link to={`/profile/${user.id}`} className='flex gap-3 items-center'>
+            <Link to={`/profile/${user.id}`} className='flex gap-3 items-center ml-2'>
               <img src={user.imageUrl || "/assets/icons/profile-placeholder.svg"} alt="" className='h-8 w-8 rounded-full' />
 
               <div className='flex flex-col'>
