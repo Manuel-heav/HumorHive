@@ -12,3 +12,10 @@ export const SignupValidation = z.object({
     email: z.string().email(),
     password: z.string().min(8),
   })
+
+  export const PostValidation = z.object({
+    caption: z.string().min(5).max(2200),
+    file: z.custom<File[]>(),
+    tags: z.string(),
+    location: z.string().min(2).max(100),
+  })
