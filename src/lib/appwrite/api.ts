@@ -105,6 +105,31 @@ export async function createPost(post: INewPost) {
             throw Error;
             
         }
+
+        // Conver tags in an array
+        const tags = post.tags?.replace(/ /g,'').split(',') || [];
+
+
+        const newPost = await databases.createDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.postCollectionId,
+            ID.unique(),
+            {
+                creator: post.userId,
+                caption: post.caption,
+                imageUrl: fileUrl,
+                imageId: uploadedFile.$id,
+                location: post.location,
+                tage: tags,
+            }
+        )
+
+        if(!newPost){
+            await deleteFile(uploadedFile.$id)
+            throw Error;
+        }
+
+        return newPost;
     }catch(err){
         console.log(err)
     }
