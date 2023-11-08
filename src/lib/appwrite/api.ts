@@ -1,6 +1,7 @@
-import { INewUser } from "@/types";
+import { INewPost, INewUser } from "@/types";
 import { ID, Query } from 'appwrite'
-import { account, appwriteConfig, avatars, databases } from "./config";
+import { account, appwriteConfig, avatars, databases, storage } from "./config";
+import { TextEncoderStream } from "node:stream/web";
 
 
 export async function createUserAccount(user: INewUser){
@@ -87,6 +88,64 @@ export async function signOutAccount(){
             const session = await account.deleteSession("current");
 
             return session;
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export async function createPost(post: INewPost) {
+    try{
+        const uploadedFile = await uploadFile(post.file[0])
+
+        if(!uploadedFile) throw Error;
+
+        const fileUrl = await getFilePreview(uploadedFile.$id);
+        if(!fileUrl){
+            deleteFile(uploadedFile.$id)
+            throw Error;
+            
+        }
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export async function uploadFile(file: File){
+    try{
+        const uploadedFile = await storage.createFile(
+            appwriteConfig.storageId,
+            ID.unique(),
+            file
+        );
+
+        return uploadedFile
+    }catch(err){
+        console.log(TextEncoderStream)
+    }
+}
+
+export async function getFilePreview(fileId: string){
+    try{
+        const fileUrl = storage.getFilePreview(
+            appwriteConfig.storageId,
+            fileId,
+            2000,
+            2000,
+            "top",
+            100,
+        )
+
+        return fileUrl;
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export async function deleteFile(fileId: string){
+    try{
+        await storage.deleteFile(appwriteConfig.storageId, fileId)
+
+        return {status: "OK"}
     }catch(err){
         console.log(err)
     }

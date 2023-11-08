@@ -20,6 +20,7 @@ type PostFormProps = {
 }
 
 const PostForm = ({ post }: PostFormProps) => {
+  const {mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost();
     // 1. Define your form.
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
