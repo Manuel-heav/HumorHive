@@ -1,7 +1,7 @@
 import { INewPost, INewUser } from "@/types";
 import { ID, Query } from 'appwrite'
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
-import { TextEncoderStream } from "node:stream/web";
+
 
 
 export async function createUserAccount(user: INewUser){
@@ -174,4 +174,14 @@ export async function deleteFile(fileId: string){
     }catch(err){
         console.log(err)
     }
+}
+
+export async function getRecentPosts(){
+    const posts = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.postCollectionId,
+        [Query.orderDesc('$createdAt'), Query.limit(20)])
+        if(!posts) throw Error;
+        
+        return posts;
 }
