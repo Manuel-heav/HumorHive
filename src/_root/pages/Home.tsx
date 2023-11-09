@@ -1,5 +1,5 @@
 import Loader from "@/components/shared/Loader";
-import { useGetRecentPosts } from "@/lib/react-query/queriesAndMutations";
+import { useGetRecentPosts } from "@/lib/react-query/queriesAndMutations"
 
 const Home = () => {
 
