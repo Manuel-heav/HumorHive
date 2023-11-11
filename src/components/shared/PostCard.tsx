@@ -41,12 +41,13 @@ const PostCard = ({ post } : PostCardProps) => {
                 <p>{post.caption}</p>
                 <ul className='flex gap-1 mt-2'>
                     {post.tags.map((tag: string) => (
-                        <li key={tag} className='text-light-3'>
+                        <li key={tag} className='text-gray-600 text-sm'>
                             #{tag}
                         </li>
                     ))}
                 </ul>
             </div>
+            <img src={post.imageUrl || 'assets/icons/profile-placeholder.svg'} className='post-card_img' alt="" />
         </Link>
     </div>
   )
