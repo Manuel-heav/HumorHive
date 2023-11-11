@@ -120,7 +120,7 @@ export async function createPost(post: INewPost) {
                 imageUrl: fileUrl,
                 imageId: uploadedFile.$id,
                 location: post.location,
-                tage: tags,
+                tags: tags,
             }
         )
 
@@ -145,7 +145,7 @@ export async function uploadFile(file: File){
 
         return uploadedFile
     }catch(err){
-        console.log(TextEncoderStream)
+        console.log(err)
     }
 }
 

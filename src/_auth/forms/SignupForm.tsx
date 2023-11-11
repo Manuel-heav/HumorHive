@@ -24,7 +24,7 @@ export default function SignupForm() {
   const {toast} = useToast();
   const navigate = useNavigate();
   const {checkAuthUser, isLoading:isUserLoading} = useUserContext();
-  // 1. Define your form.
+
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
     defaultValues: {
