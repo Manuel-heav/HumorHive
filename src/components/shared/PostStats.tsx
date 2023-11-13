@@ -35,13 +35,17 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
               : "/assets/icons/like.svg"}`} 
             alt="" 
             width={20} height={20} 
-            onClick={() => {}} className='cursor-pointer'/>
-            <p className='small-medium lg:base-medium'>0</p>
+            onClick={handleLikePost} className='cursor-pointer'/>
+            <p className='small-medium lg:base-medium'>{likes.length}</p>
         </div>
 
         <div className="flex gap-2">
-            <img src="/assets/icons/save.svg" alt="" width={20} height={20} onClick={() => {}} className='cursor-pointer'/>
-            <p className='small-medium lg:base-medium'>0</p>
+            <img src={`${isSaved ? "/assets/icons/saved.svg" : "/assets/icons/save.svg"}`}
+            alt="" 
+            width={20} 
+            height={20} 
+            onClick={handleSavePost} className='cursor-pointer'/>
+            
         </div>
     </div>
   )
