@@ -284,7 +284,7 @@ export async function updatePost(post: IUpdatePost) {
         const updatedPost = await databases.updateDocument(
             appwriteConfig.databaseId,
             appwriteConfig.postCollectionId,
-            post.postId
+            post.postId,
             {
                 caption: post.caption,
                 imageUrl: image.imageUrl,
