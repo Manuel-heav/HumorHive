@@ -56,7 +56,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
       })
 
       if(!updatePost){
-        toast({title: "Please try again"})
+        toast({title: "Please try again"});
       }
 
       return navigate(`/posts/${post.$id}`)
