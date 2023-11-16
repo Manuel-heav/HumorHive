@@ -1,4 +1,5 @@
 import Loader from "@/components/shared/Loader";
+import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutations"
 import { timeAgo } from "@/lib/utils";
@@ -7,6 +8,10 @@ const PostDetails = () => {
   const { id } = useParams()
   const {data: post, isPending } = useGetPostById(id || '');
   const { user } = useUserContext();
+
+  const handleDeletePost = () => {
+
+  }
   return (
     <div className="post_details-container">
       {isPending ? <Loader /> : (
@@ -31,6 +36,10 @@ const PostDetails = () => {
                   <Link to={`/update-post/${post?.$id}`} className={`${user.id !== post?.creator.$id && 'hidden'}`}>
                     <img src="/assets/icons/edit.svg" alt="" width={24} height={24}/>
                   </Link>
+
+                  <Button onClick={handleDeletePost} variant="ghost" className={`ghost_details-delete_btn ${user.id !== post?.creator.$id && 'hidden'}`}>
+                    <img src="/assets/icons/delete.svg" alt="" width={24} height={24} />
+                  </Button>
                 </div>
             </div>
             </div>
