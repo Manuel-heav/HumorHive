@@ -1,4 +1,5 @@
 import Loader from "@/components/shared/Loader";
+import PostStats from "@/components/shared/PostStats";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutations"
@@ -19,7 +20,7 @@ const PostDetails = () => {
           <img src={post?.imageUrl} className="post_details-img" alt="" />
           <div className="post_details-info">
             <div className="flex-between w-full">
-            <Link to={`/profile/${post?.creator.$id}`} className="fkex items-center gap-3">
+            <Link to={`/profile/${post?.creator.$id}`} className="flex items-center gap-3">
                     <img src={post?.creator?.imageUrl || '/assets/icons/profile-placeholder.svg'} alt="Creator" className='rounded-full w-8 h-8 lg:h-10 lg:w-10' />
 
                 <div className="flex flex-col">
@@ -32,7 +33,7 @@ const PostDetails = () => {
                 </div>
                 </Link>
 
-                <div className="flex-center gap-4">
+                <div className="flex-center gap-1">
                   <Link to={`/update-post/${post?.$id}`} className={`${user.id !== post?.creator.$id && 'hidden'}`}>
                     <img src="/assets/icons/edit.svg" alt="" width={24} height={24}/>
                   </Link>
@@ -42,6 +43,23 @@ const PostDetails = () => {
                   </Button>
                 </div>
             </div>
+
+            <hr className="border w-full border-dark-4/80"/>
+
+                <div className='flex flex-col flex-1 w-full small-medium lg-base-regular'>
+                    <p>{post?.caption}</p>
+                    <ul className='flex gap-1 mt-2'>
+                        {post?.tags.map((tag: string) => (
+                            <li key={tag} className='text-gray-600 text-sm'>
+                                #{tag}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className="w-full">
+                  <PostStats post={post} userId={user.id}/>
+                </div>
             </div>
         </div>
       )}
