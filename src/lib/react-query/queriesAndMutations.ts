@@ -73,7 +73,7 @@ export const useCreatePost = () => {
 
     return useMutation({
         mutationFn: ({postId, userId} : {postId: string; userId: string}) => savePost(postId, userId),
-        onSuccess: (data) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: [QUERY_KEYS.GET_RECENT_POSTS]
             })
@@ -151,8 +151,10 @@ export const useCreatePost = () => {
         queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
         queryFn: getInfinitePosts,
         getNextPageParam: (lastPage) => {
-            if(lastPage && lastPage.documents.length === 0) return null;
-            const lastId = lastPage.documents[lastPage?.documents.length - 1].$id;
+            if(lastPage && lastPage.documents.length === 0){
+                return null;
+            } 
+            const lastId = lastPage?.documents[lastPage?.documents.length - 1].$id;
             return lastId;
         }
     })
