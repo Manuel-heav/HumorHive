@@ -1,24 +1,24 @@
-import { Models } from 'appwrite';
-import Loader from './Loader';
-import GridPostList from './GridPostList';
+// import { Models } from 'appwrite';
+// import Loader from './Loader';
+// import GridPostList from './GridPostList';
 
 
-type SearchResultsPosts = {
-  isSearchFetching: boolean;
-  searchedPosts?: Models.Document[];
-}
-const SearchResults = ({ isSearchFetching, searchedPosts}: SearchResultsPosts) => {
+// type SearchResultsPosts = {
+//   isSearchFetching: boolean;
+//   searchedPosts?: Models.Document[];
+// }
+// const SearchResults = ({ isSearchFetching, searchedPosts}: SearchResultsPosts) => {
 
-  if(isSearchFetching) return <Loader />
+//   if(isSearchFetching) return <Loader />
 
-  if(searchedPosts && searchedPosts.documents.length > 0) {
-    return (
-    <GridPostList posts={searchedPosts.documents}/>
-  ) 
-  }
-  return (
-    <p className='text-light-4 mt-10 text-center w-full'>No Results Found</p>
-  )
-}
+//   if(searchedPosts && searchedPosts.documents.length > 0) {
+//     return (
+//     <GridPostList posts={searchedPosts.documents}/>
+//   ) 
+//   }
+//   return (
+//     <p className='text-light-4 mt-10 text-center w-full'>No Results Found</p>
+//   )
+// }
 
-export default SearchResults
+// export default SearchResults
